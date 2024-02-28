@@ -6,26 +6,36 @@ const ejs = require('ejs');
 
 const app = express();
 const PORT = 3000;
+
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
+
 // Serve static files from the public folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+let totalHtml = ``;
+
 // Create a route for each Markdown post
-fs.readdir('./posts', (err, files) => {
-  files.forEach(file => {
-    const name = file.split('.')[0];
-    const filePath = path.join(__dirname, 'posts', file);
-    const fileContents = fs.readFileSync(filePath, 'utf8');
+fs.readdir("./posts", (err, files) => {
+  files.forEach((file) => {
+    const name = file.split(".")[0];
+    const filePath = path.join(__dirname, "posts", file);
+    const fileContents = fs.readFileSync(filePath, "utf8");
     const html = marked(fileContents);
+    totalHtml += html;
+    totalHtml += "<br/>";
     app.get(`/${name}`, (req, res) => {
-      res.render('post', { title: name, content: html });
+      res.render("post", { title: name, content: html });
     });
   });
+  totalHtml = marked(totalHtml);
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send(totalHtml);
 });
+
 app.get("/:filename", (req, res) => {
   const filename = req.params.filename;
   const markdown = `./posts/${filename}.md`;
