@@ -1,18 +1,15 @@
-const express = require('express');
-const {marked} = require('marked');
-const fs = require('fs');
-const path = require('path');
-const ejs = require('ejs');
+const express = require("express");
+const { marked } = require("marked");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-// Set the view engine to EJS
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
-// Serve static files from the public folder
-app.use(express.static(path.join(__dirname, 'public')));
-
+// Serve static files from the public directory
+app.use(express.static("public"));
 
 let totalHtml = ``;
 
@@ -32,10 +29,6 @@ fs.readdir("./posts", (err, files) => {
   totalHtml = marked(totalHtml);
 });
 
-app.get("/", (req, res) => {
-  res.send(totalHtml);
-});
-
 app.get("/:filename", (req, res) => {
   const filename = req.params.filename;
   const markdown = `./posts/${filename}.md`;
@@ -44,12 +37,17 @@ app.get("/:filename", (req, res) => {
       res.send("File not found");
     } else {
       const html = marked(data.toString());
-      res.send(html);
+      res.render("post", { title: filename, content: html });
     }
   });
 });
 
-// Start the server
+// WORKING APPROACH
+app.get("/", (req, res) => {
+  // Render the HTML content using EJS
+  res.render("index", { content: totalHtml });
+});
+
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
