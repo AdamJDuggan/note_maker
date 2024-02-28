@@ -29,6 +29,13 @@ fs.readdir("./posts", (err, files) => {
   totalHtml = marked(totalHtml);
 });
 
+const articles = [
+  { title: "Title 1", body: "Body 1" },
+  { title: "Title 2", body: "Body 2" },
+  { title: "Title 3", body: "Body 3" },
+  { title: "Title 4", body: "Body 4" },
+];
+
 app.get("/:filename", (req, res) => {
   const filename = req.params.filename;
   const markdown = `./posts/${filename}.md`;
@@ -37,7 +44,11 @@ app.get("/:filename", (req, res) => {
       res.send("File not found");
     } else {
       const html = marked(data.toString());
-      res.render("post", { title: filename, content: html });
+      res.render("post", {
+        title: filename,
+        content: html,
+        articles,
+      });
     }
   });
 });
