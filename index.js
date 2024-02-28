@@ -3,6 +3,8 @@ const { marked } = require("marked");
 const fs = require("fs");
 const path = require("path");
 
+fm = require("front-matter");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -29,25 +31,23 @@ fs.readdir("./posts", (err, files) => {
   totalHtml = marked(totalHtml);
 });
 
-const articles = [
-  { title: "Title 1", body: "Body 1" },
-  { title: "Title 2", body: "Body 2" },
-  { title: "Title 3", body: "Body 3" },
-  { title: "Title 4", body: "Body 4" },
-];
-
 app.get("/:filename", (req, res) => {
   const filename = req.params.filename;
   const markdown = `./posts/${filename}.md`;
+
   fs.readFile(markdown, "utf8", (err, data) => {
     if (err) {
       res.send("File not found");
     } else {
-      const html = marked(data.toString());
+      var { attributes, body } = fm(data);
+      const html = marked(body.toString());
+      const keywords = attributes.keywords
+        ? attributes.keywords.split(" ").map((w) => w)
+        : [];
       res.render("post", {
-        title: filename,
+        title: attributes.title,
+        keywords,
         content: html,
-        articles,
       });
     }
   });

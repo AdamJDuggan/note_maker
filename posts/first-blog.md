@@ -1,7 +1,6 @@
 ---
 title: Getting started with Node.js
-date: 2023-04-01
-author: John Doe
+keywords: One Two Three
 ---
 
 ## Start redis server locally
