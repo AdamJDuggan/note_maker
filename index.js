@@ -13,22 +13,39 @@ app.set("view engine", "ejs");
 // Serve static files from the public directory
 app.use(express.static("public"));
 
-let totalHtml = ``;
+let totalHtml = [];
+let numOfImages = 0;
+
+fs.readdir("./public/images", (err, files) => {
+  if (err) {
+    console.error("Error reading directory:", err);
+    return;
+  }
+  numOfImages = files.length;
+});
 
 // Create a route for each Markdown post
 fs.readdir("./posts", (err, files) => {
-  files.forEach((file) => {
-    const name = file.split(".")[0];
+  files.forEach((file, index) => {
     const filePath = path.join(__dirname, "posts", file);
+    const split = filePath.split("/");
+    const link = split[split.length - 1].split(".")[0];
     const fileContents = fs.readFileSync(filePath, "utf8");
-    const html = marked(fileContents);
-    totalHtml += html;
-    totalHtml += "<br/>";
-    app.get(`/${name}`, (req, res) => {
-      res.render("post", { title: name, content: html });
+    var { attributes, body } = fm(fileContents);
+    const html = marked(body.toString());
+    const keywords = attributes.keywords
+      ? attributes.keywords.split(" ").map((w) => w)
+      : [];
+    const imgIndex = index % numOfImages;
+    totalHtml.push({
+      title: attributes.title,
+      description: attributes.description,
+      link,
+      image: `/images/${imgIndex}.jpg`,
+      keywords,
+      content: html,
     });
   });
-  totalHtml = marked(totalHtml);
 });
 
 app.get("/:filename", (req, res) => {
@@ -56,7 +73,7 @@ app.get("/:filename", (req, res) => {
 // WORKING APPROACH
 app.get("/", (req, res) => {
   // Render the HTML content using EJS
-  res.render("index", { content: totalHtml });
+  res.render("index", { posts: totalHtml });
 });
 
 app.listen(PORT, () => {

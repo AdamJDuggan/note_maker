@@ -1,12 +1,15 @@
 {
   "dependencies": {
+    "colors": "^1.4.0",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "front-matter": "^4.0.2",
     "marked": "^12.0.0",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "run-func": "^3.0.0"
   },
   "scripts": {
-    "server": "nodemon --watch index.js"
+    "server": "nodemon --watch index.js",
+    "create": "npx run-func createPost.js createPost"
   }
 }

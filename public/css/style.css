@@ -1,20 +1,73 @@
 *{
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
 
 body {
-  color: black;
+ display: grid;
+ place-items: center;
+ gap: 40px;
+ padding: 20px;
+ font-family: Ubuntu;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 50px;
-  font-family: Arial, sans-serif;
-  line-height: 1.5;
+/* Main page */
+
+/* UL of posts */
+.posts {
+ width: 100%;
+ max-width: 1000px;
 }
+/* li */
+.post{
+  border-top: 1px solid black;
+  margin-bottom: 60px;
+}
+
+/* Image and title/link */
+.post-title {
+  display: flex;
+  align-items: center;
+}
+
+/* Title  */
+.post-link{
+  font-size: 28px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+/* Description and keywords */
+.post-meta {
+  margin-bottom: 10px;
+}
+
+.post-description{
+  margin-bottom: 12px;
+}
+
+.post-keywords{
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.post-keyword {
+  margin-right: 10px;
+  color: green;
+  font-weight: bold;
+}
+
+/* Markdown content as html */
+.post-content {
+  margin-top: 30px;
+}
+
 h1 {
-  font-size: 36px;
+  font-size: 28px;
   font-weight: bold;
 }
 h2 {
@@ -22,21 +75,30 @@ h2 {
   font-weight: bold;
 }
 h3 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
 }
+
+
 p {
   font-size: 16px;
-  margin-bottom: 20px;
 }
 a {
   color: #1a0dab;
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: underline;
 }
 
 code {
-  background-color: red;
+  background-color: blue;
 }
+
+
+img{
+  max-width: 100px;
+  max-height: 100px;
+}
+
