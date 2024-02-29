@@ -25,11 +25,13 @@ fs.readdir("./public/images", (err, files) => {
 });
 
 const formatDate = (fileDate) => {
-  const date = fileDate.split("T")[0];
-  const time = fileDate.split("T")[1];
-  date.split("-");
-  time.split(":");
-  return `${date[2]}/${date[1]}/${date[0]} ${time[0]}:${time[1]}`;
+  const date = new Date(fileDate);
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, "0");
+  const day = `${date.getDate()}`.padStart(2, "0");
+  const hours = `${date.getHours()}`.padStart(2, "0");
+  const minutes = `${date.getMinutes()}`.padStart(2, "0");
+  return `${hours}:${minutes} on ${day}/${month}/${year}`;
 };
 
 // Create a route for each Markdown post
@@ -46,13 +48,14 @@ fs.readdir("./posts", (err, files) => {
       : [];
     const imgIndex = index % numOfImages;
     const { ctime, mtime } = await fs.statSync(filePath);
-    console.log(ctime, mtime);
     allPosts.push({
       title: attributes.title,
       description: attributes.description,
       link,
       image: `/images/${imgIndex}.jpg`,
       keywords,
+      createdAt: formatDate(ctime),
+      lastModified: formatDate(mtime),
       content: html,
     });
   });

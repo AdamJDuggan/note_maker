@@ -1,36 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Markdown to HTML</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-  </head>
-<body>
-   
-<ul class="posts">
+<%- include('partials/header') %>
+<ul class="posts container">
+
     <% posts.forEach((post)=> { %>
         <li class="post">
-       
-            <div class="post-title">
+            <div class="post-title bg-primary">
                 <img src="<%= post.image %>" alt="Stree Fighter character">
                 <a href="/<%= post.link %>" class="post-link" ><%= post.title %></a>
             </div>
-    <ul class="post-keywords">
-        <% post.keywords.forEach((keyword)=> { %>
-            <li class="post-keyword">
-                <%= keyword %> 
-            </li>
-        <% }) %>
-    </ul>
+            <div class="post-meta bg-secondary">
+                <ul class="post-keywords">
+                    <% post.keywords.forEach((keyword)=> { %>
+                        <li class="post-keyword">
+                            <%= keyword %> 
+                        </li>
+                    <% }) %>
+                </ul>
+            <div class="post-dates">
+            <span>Created at: <%= post.createdAt %></span>
+              <span>Last modified: </strong><%= post.lastModified %></span>
+        </div>
+            </div>
+  
         <div class="post-content">
         <%- post.content %>
         </div>
+       
         
         </details>
     <% }) %>
 </ul>
+<%- include('partials/footer') %>
+
  
 
-</tbody>
-</table>
-</body>
-</html>
+
