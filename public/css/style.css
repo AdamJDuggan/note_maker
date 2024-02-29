@@ -9,8 +9,9 @@ body {
  display: grid;
  place-items: center;
  gap: 40px;
- padding: 20px;
- font-family: Ubuntu;
+ padding: 10px;
+ font-family: Helvetica, sans-serif;
+ background-color: hsl(0, 0%, 96%);
 }
 
 /* Main page */
@@ -22,48 +23,66 @@ body {
 }
 /* li */
 .post{
-  border-top: 1px solid black;
+  border: 1px solid hsl(0, 0%, 96%);
   margin-bottom: 60px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 /* Image and title/link */
 .post-title {
   display: flex;
   align-items: center;
+  background-color: hsl(217, 71%, 53%);
+  color: white;
 }
+
 
 /* Title  */
 .post-link{
   font-size: 28px;
   font-weight: bold;
-  margin-left: 20px;
+  color: white;
+  margin: 10px 10px 10px 20px;
 }
 
-/* Description and keywords */
-.post-meta {
-  margin-bottom: 10px;
-}
-
-.post-description{
-  margin-bottom: 12px;
-}
 
 .post-keywords{
   display: flex;
   flex-wrap: wrap;
-  font-size: 11px;
+  font-size: 13px;
   text-transform: uppercase;
+  padding: 10px;
+  background-color: hsl(171, 100%, 41%);
+  color: white;
+
 }
 
 .post-keyword {
   margin-right: 10px;
-  color: green;
   font-weight: bold;
 }
 
 /* Markdown content as html */
 .post-content {
-  margin-top: 30px;
+  padding: 30px 10px 10px 10px;
+  background-color: white;
+}
+
+/* HTML elements */
+
+code {
+  font-family: Ubuntu;
+  display: block;
+  background-color: hsl(203, 16%, 67%);
+  color: white;
+  border-radius: 6px;
+  margin-bottom: 20x;
+  padding: 10px;
+}
+
+img {
+  width: 150px;
+  height: 150px;
 }
 
 h1 {
@@ -82,9 +101,9 @@ h3 {
 
 p {
   font-size: 16px;
+  margin-bottom: 10px;
 }
 a {
-  color: #1a0dab;
   text-decoration: none;
 }
 
@@ -92,13 +111,8 @@ a:hover {
   text-decoration: underline;
 }
 
-code {
-  background-color: blue;
-}
 
 
-img{
-  max-width: 100px;
-  max-height: 100px;
-}
+
+
 

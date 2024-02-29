@@ -9,7 +9,9 @@
     "run-func": "^3.0.0"
   },
   "scripts": {
-    "server": "nodemon --watch index.js",
-    "create": "npx run-func createPost.js createPost"
+    "server": "nodemon --watch",
+    "create": "npx run-func postActions.js createPost",
+    "delete": "npx run-func postActions.js deletePost",
+    "update": "npx run-func postActions.js updatePost"
   }
 }

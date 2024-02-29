@@ -1,9 +1,14 @@
 ---
-title: Allocate and persist extra space for Node.js in Linux
-keywords: Node.js Linix
+title: Allocate and persist extra memory for Node.js in Linux
+keywords: Node.js Linux
 ---
 
-`sudo service NetworkManager stop
-sudo rm /etc/NetworkManager/system-connections/*
-sudo service NetworkManager start
-sudo ifdown th0 && sudo ifup eth0`
+Open terminal config file
+
+`nano .zshrc`
+
+And add this line
+
+`export NODE_OPTIONS=--max-old-space-size=4096`
+
+

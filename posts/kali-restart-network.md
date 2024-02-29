@@ -1,9 +1,11 @@
 ---
-title: Restart network manager in kali
-keywords: Kali Linux Network Manager
+title: Restart NetworkManager in Kali
+keywords: Kali Linux NetworkManager
 ---
 
-`sudo service NetworkManager stop
+```
+sudo service NetworkManager stop
 sudo rm /etc/NetworkManager/system-connections/*
 sudo service NetworkManager start
-sudo ifdown th0 && sudo ifup eth0`
+sudo ifdown th0 && sudo ifup eth0
+```
