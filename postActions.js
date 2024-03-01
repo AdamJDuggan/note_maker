@@ -32,9 +32,9 @@ const createPost = async (fileName, _title, _keywords) => {
     _keywords.split(",").forEach((word) => (keywords += word + " "));
 
   const content = `---
-    title: ${title}
-    keywords: ${keywords}
-    createdAt: ${date}
+title: ${title}
+keywords: ${keywords}
+createdAt: ${date}
 ---`;
 
   await fs.writeFile(filePath, content, "utf8", (err) => {

@@ -96,10 +96,11 @@ app.get("/search/:search", (req, res) => {
       [...post.title.split(" "), ...post.keywords].includes(sw)
     )
   );
-  console.log(posts.map((p) => p.title));
   res.render("index", { posts: posts });
 });
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+

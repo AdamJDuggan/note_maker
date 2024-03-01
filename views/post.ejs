@@ -1,26 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Markdown to HTML</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-  </head>
-<body>
-    <a href="/">BACK Button</a>
-    <h1> <%- title %></h1>
-    <ul>
-        <% keywords.forEach((keyword)=> { %>
-            <li>
-                <h2>
-                    <%= keyword %>
-                </h2>
-               
-            </li>
-            <hr />
-        <% }) %>
-    </ul>
-
-    <div>
+<%- include('partials/header') %>
+    <div class="page">
+        <div class="banner"></div>
+        <h1 class="text-primary"><%= title %></h1>
         <%- content %>
+         <div class="page-dates">
+            <span>Created at: </span>
+            <span>Last modified: </span>
+        </div>
     </div>  
-</body>
-</html>
+<%- include('partials/footer') %>
