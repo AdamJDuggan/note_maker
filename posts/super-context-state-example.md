@@ -5,7 +5,7 @@ createdAt: Fri Mar 01 2024 12:58:05 GMT+0000 (Greenwich Mean Time)
 ---
 
 Proof of concept of state wrapper for React.
-Expose a built in Errors state and Pending State
+Expose a built in Errors state and Pending State.
 
 
 ```

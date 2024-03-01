@@ -34,7 +34,7 @@ const formatDate = (fileDate) => {
   return `${hours}:${minutes} on ${day}/${month}/${year}`;
 };
 
-const testDate = async (filePath) => {
+const getDates = async (filePath) => {
   const { ctime, mtime } = await fs.statSync(filePath);
   const createdAt = formatDate(ctime);
   const lastModified = formatDate(mtime);
@@ -54,9 +54,10 @@ fs.readdir("./posts", (err, files) => {
       ? attributes.keywords.split(" ").map((w) => w)
       : [];
     const imgIndex = Math.floor(Math.random() * numOfImages);
-    const { createdAt, lastModified } = await testDate(filePath);
+    const { createdAt, lastModified } = await getDates(filePath);
 
-    console.log(attributes.title);
+    const { mtime } = await fs.statSync(filePath);
+
     allPosts.push({
       title: attributes.title,
       description: attributes.description,
@@ -66,7 +67,9 @@ fs.readdir("./posts", (err, files) => {
       createdAt,
       lastModified,
       content: html,
+      mtime,
     });
+    allPosts.sort((a, b) => new Date(b.mtime) - new Date(a.mtime));
   });
 });
 
@@ -84,7 +87,7 @@ app.get("/:filename", (req, res) => {
       const keywords = attributes.keywords
         ? attributes.keywords.split(" ").map((w) => w)
         : [];
-      const { createdAt, lastModified } = await testDate(filePath);
+      const { createdAt, lastModified } = await getDates(filePath);
       res.render("post", {
         title: attributes.title,
         keywords,
