@@ -55,6 +55,8 @@ fs.readdir("./posts", (err, files) => {
       : [];
     const imgIndex = Math.floor(Math.random() * numOfImages);
     const { createdAt, lastModified } = await testDate(filePath);
+
+    console.log(attributes.title);
     allPosts.push({
       title: attributes.title,
       description: attributes.description,

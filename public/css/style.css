@@ -22,15 +22,15 @@ main {
 
 
 code {
-  font-family: "Kode Mono", monospace;  
+  font-family: "Source Code Pro", monospace;  
   display: block;
-  background-color: hsl(203, 16%, 67%);
+  background-color: hsl(204, 94%, 19%);
   color: white;
   border-radius: 6px;
   margin-bottom: 20x;
   padding: 10px;
   overflow-x: auto;
-  font-weight: bold;
+  font-size: 14px;
 }
 
 
@@ -53,7 +53,6 @@ p {
   margin-bottom: 10px;
 }
 a {
-  text-decoration: none;
   color: inherit;
 }
 
@@ -94,6 +93,12 @@ header {
   width: 100%;
 }
 
+header a {
+  text-transform: none;
+  text-decoration: none;
+  font-weight: bold;
+}
+
 .header-content{
   display: flex;
   justify-content: space-between;
@@ -130,13 +135,18 @@ footer{
 }
 
 footer img {
-  max-height: 100px;
+  max-height: 70px;
 }
 
 /* UL of posts */
 .posts {
- margin-top: 20px;
+ overflow-x: auto;
 }
+
+.posts a {
+  cursor: pointer;
+}
+
 /* li */
 .post{
   border: 1px solid hsl(0, 0%, 96%);
@@ -161,6 +171,7 @@ footer img {
   font-size: 20px;
   font-weight: bold;
   color: white;
+  text-decoration: none;
   margin: 10px 10px 10px 20px;
 }
 
@@ -197,7 +208,7 @@ footer img {
 
 /* Markdown content as html */
 .post-content {
-  padding: 30px 10px 10px 10px;
+  padding: 10px;
   background-color: white;
 }
 
