@@ -3,11 +3,9 @@ title: Set up NVM in Linux
 keywords: Node.js NVN Linux Config
 ---
 
-
 Open terminal config file
 
 `nano .zshrc`
-
 
 And add this line
 ```

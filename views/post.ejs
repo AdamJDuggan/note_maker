@@ -1,11 +1,10 @@
 <%- include('partials/header') %>
     <div class="page">
-        <div class="banner"></div>
         <h1 class="text-primary"><%= title %></h1>
         <%- content %>
          <div class="page-dates">
-            <span>Created at: </span>
-            <span>Last modified: </span>
+            <span>Created at: <%= createdAt %></span>
+            <span>Last modified: <%= lastModified %></span>
         </div>
     </div>  
 <%- include('partials/footer') %>

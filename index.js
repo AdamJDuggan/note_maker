@@ -34,9 +34,16 @@ const formatDate = (fileDate) => {
   return `${hours}:${minutes} on ${day}/${month}/${year}`;
 };
 
+const testDate = async (filePath) => {
+  const { ctime, mtime } = await fs.statSync(filePath);
+  const createdAt = formatDate(ctime);
+  const lastModified = formatDate(mtime);
+  return { createdAt, lastModified };
+};
+
 // Create a route for each Markdown post
 fs.readdir("./posts", (err, files) => {
-  files.forEach(async (file, index) => {
+  files.forEach(async (file) => {
     const filePath = path.join(__dirname, "posts", file);
     const split = filePath.split("/");
     const link = split[split.length - 1].split(".")[0];
@@ -46,16 +53,16 @@ fs.readdir("./posts", (err, files) => {
     const keywords = attributes.keywords
       ? attributes.keywords.split(" ").map((w) => w)
       : [];
-    const imgIndex = index % numOfImages;
-    const { ctime, mtime } = await fs.statSync(filePath);
+    const imgIndex = Math.floor(Math.random() * numOfImages);
+    const { createdAt, lastModified } = await testDate(filePath);
     allPosts.push({
       title: attributes.title,
       description: attributes.description,
       link,
       image: `/images/${imgIndex}.jpg`,
       keywords,
-      createdAt: formatDate(ctime),
-      lastModified: formatDate(mtime),
+      createdAt,
+      lastModified,
       content: html,
     });
   });
@@ -64,8 +71,9 @@ fs.readdir("./posts", (err, files) => {
 app.get("/:filename", (req, res) => {
   const filename = req.params.filename;
   const markdown = `./posts/${filename}.md`;
+  const filePath = path.join(__dirname, "posts", filename + ".md");
 
-  fs.readFile(markdown, "utf8", (err, data) => {
+  fs.readFile(markdown, "utf8", async (err, data) => {
     if (err) {
       res.send("File not found");
     } else {
@@ -74,9 +82,12 @@ app.get("/:filename", (req, res) => {
       const keywords = attributes.keywords
         ? attributes.keywords.split(" ").map((w) => w)
         : [];
+      const { createdAt, lastModified } = await testDate(filePath);
       res.render("post", {
         title: attributes.title,
         keywords,
+        createdAt,
+        lastModified,
         content: html,
       });
     }
