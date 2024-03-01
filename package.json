@@ -12,6 +12,7 @@
     "server": "nodemon --watch",
     "create": "npx run-func postActions.js createPost",
     "delete": "npx run-func postActions.js deletePost",
-    "update": "npx run-func postActions.js updatePost"
+    "update": "npx run-func postActions.js updatePost",
+    "push": "git add . && git commit -m 'update to posts' && git push origin master'"
   }
 }
