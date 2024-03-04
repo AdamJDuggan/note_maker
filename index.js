@@ -61,7 +61,7 @@ fs.readdir("./posts", (err, files) => {
     allPosts.push({
       title: attributes.title,
       description: attributes.description,
-      link,
+      link: `posts/${link}`,
       image: `/images/${imgIndex}.jpg`,
       keywords,
       createdAt,
@@ -73,7 +73,7 @@ fs.readdir("./posts", (err, files) => {
   });
 });
 
-app.get("/:filename", (req, res) => {
+app.get("/posts/:filename", (req, res) => {
   const filename = req.params.filename;
   const markdown = `./posts/${filename}.md`;
   const filePath = path.join(__dirname, "posts", filename + ".md");
@@ -102,17 +102,33 @@ app.get("/:filename", (req, res) => {
 // WORKING APPROACH
 app.get("/", (req, res) => {
   // Render the HTML content using EJS
-  res.render("index", { posts: allPosts });
+  res.render("index", { search: "All posts", keywords: "", posts: allPosts });
 });
 
 app.get("/search/:search", (req, res) => {
-  const searchWords = req.params.search.split(",");
-  const posts = allPosts.filter((post) =>
-    searchWords.find((sw) =>
-      [...post.title.split(" "), ...post.keywords].includes(sw)
-    )
-  );
-  res.render("index", { posts: posts });
+  const searchWords = req.params.search
+    .split(",")
+    .map((sw) => sw.toLowerCase());
+  const posts = allPosts.filter((post) => {
+    const title = post.title
+      .replace("(", "")
+      .replace(")", "")
+      .split(" ")
+      .map((word) => word.toLowerCase());
+
+    const keywords = post.keywords.map((kw) => kw.toLowerCase());
+    return searchWords.find((sw) => [...title, ...keywords].includes(sw));
+  });
+  let search;
+  let keywords = "";
+  if (posts.length) {
+    search = "Posts with keywords: ";
+  } else {
+    search = "No posts containing keywords: ";
+  }
+  searchWords.forEach((word) => (keywords += " " + word.toUpperCase()));
+
+  res.render("index", { search, keywords, posts: posts });
 });
 
 app.listen(PORT, () => {

@@ -1,4 +1,6 @@
 <%- include('partials/header') %>
+    <h2 class="posts-search text-primary"><%= search %><span class="text-secondary"><%= keywords %></span></h2>
+
     <ul class="posts container">
         <% posts.forEach((post, index)=> { %>
             <li class="post">

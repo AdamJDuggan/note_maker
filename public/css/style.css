@@ -76,6 +76,10 @@ color: white;
   color: white;
 }
 
+.text-secondary{
+  color: hsl(217, 71%, 53%);   
+}
+
 .container{
  width: 100%;
  max-width: 1000px;
@@ -131,16 +135,20 @@ footer{
   justify-content: center;
   flex-wrap: nowrap;
   overflow: hidden;
-  opacity: 0.7;
 }
 
 footer img {
-  max-height: 70px;
+  max-height: 80px;
 }
 
 /* UL of posts */
 .posts {
  overflow-x: auto;
+}
+
+.posts-search {
+  margin-bottom: 40px;
+  text-align: left;
 }
 
 .posts a {
@@ -231,10 +239,7 @@ footer img {
 
 
 .page-dates {
-  padding-top: 20px;
-  border-top: 1px solid gray;
   font-size: 12px;
-  margin-top: 100px;
   font-weight: bold;
 }
 
